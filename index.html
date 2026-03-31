@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أكاديمية سايبر خليل | Cyber Khalil Academy</title>
-    <!-- Google Fonts & Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ========== ROOT VARIABLES (matching personal site) ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --primary: #007aff;
             --primary-dark: #0056b3;
-            --primary-glow: rgba(0, 122, 255, 0.3);
+            --primary-glow: rgba(0, 122, 255, 0.5);
             --dark: #0a192f;
             --dark-alt: #112240;
             --text-main: #ccd6f6;
@@ -20,12 +24,8 @@
             --white: #ffffff;
             --glass: rgba(255, 255, 255, 0.05);
             --card-hover: #1a2f4a;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --success: #34c759;
+            --tag-bg: rgba(0, 122, 255, 0.15);
         }
 
         body {
@@ -36,7 +36,6 @@
             overflow-x: hidden;
         }
 
-        /* animated background grid */
         .bg-grid {
             position: fixed;
             top: 0;
@@ -80,39 +79,46 @@
             font-size: 1.5rem;
             color: var(--white);
         }
-        .logo span {
-            color: var(--primary);
+        .logo span { color: var(--primary); }
+
+        /* Navigation Buttons Group */
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
         }
-        .lang-switch {
+        .nav-btn {
             background: transparent;
-            color: var(--primary);
             border: 1px solid var(--primary);
+            color: var(--primary);
             padding: 5px 15px;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             font-family: inherit;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
         }
-        .lang-switch:hover {
+        .nav-btn i {
+            font-size: 0.9rem;
+        }
+        .nav-btn:hover {
             background: rgba(0, 122, 255, 0.1);
         }
 
-        /* ========== HERO SECTION ========== */
+        /* ========== HERO ========== */
         .academy-hero {
-            min-height: 70vh;
+            min-height: 60vh;
             display: flex;
             align-items: center;
             text-align: center;
             padding: 80px 0 60px;
             position: relative;
-            overflow: hidden;
         }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
+        .hero-content { max-width: 800px; margin: 0 auto; }
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -127,7 +133,6 @@
             font-weight: 600;
             margin-bottom: 1.5rem;
         }
-
         .hero-content h1 {
             font-size: clamp(2.5rem, 7vw, 4rem);
             font-weight: 800;
@@ -139,12 +144,10 @@
             color: transparent;
             animation: shine 6s linear infinite;
         }
-
         @keyframes shine {
             0% { background-position: 0% center; }
             100% { background-position: 200% center; }
         }
-
         .hero-content p {
             font-size: clamp(1rem, 3vw, 1.2rem);
             color: var(--text-dim);
@@ -168,12 +171,10 @@
         .courses-section {
             padding: 60px 0 100px;
         }
-
         .section-header {
             text-align: center;
             margin-bottom: 60px;
         }
-
         .section-header h2 {
             font-size: 2.2rem;
             font-weight: 700;
@@ -183,7 +184,6 @@
             background-clip: text;
             color: transparent;
         }
-
         .underline {
             width: 100px;
             height: 4px;
@@ -193,14 +193,15 @@
         }
 
         .courses-grid {
-			text-align: center;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
             gap: 35px;
+            text-align: center;
         }
 
+        /* Glassmorphism cards with glow */
         .course-card {
-            background: rgba(17, 34, 64, 0.7);
+            background: rgba(17, 34, 64, 0.65);
             backdrop-filter: blur(12px);
             border-radius: 28px;
             padding: 30px 28px;
@@ -213,7 +214,12 @@
             position: relative;
             overflow: hidden;
         }
-
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 122, 255, 0.4), 0 25px 40px -12px rgba(0, 0, 0, 0.4);
+            background: rgba(26, 47, 74, 0.8);
+        }
         .course-card::before {
             content: '';
             position: absolute;
@@ -226,17 +232,9 @@
             transform-origin: right;
             transition: transform 0.4s ease;
         }
-
         .course-card:hover::before {
             transform: scaleX(1);
             transform-origin: left;
-        }
-
-        .course-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(0, 122, 255, 0.3);
-            background: var(--card-hover);
-            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.4);
         }
 
         .card-icon {
@@ -245,22 +243,24 @@
             margin-bottom: 20px;
             transition: transform 0.3s;
         }
+        .course-card:hover .card-icon { transform: scale(1.05); }
 
-        .course-card:hover .card-icon {
-            transform: scale(1.05);
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0 12px;
         }
-
-        .course-code {
-            font-size: 0.8rem;
+        .course-tag {
+            font-size: 0.75rem;
             font-weight: 600;
+            background: var(--tag-bg);
             color: var(--primary);
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            background: rgba(0, 122, 255, 0.15);
-            display: inline-block;
             padding: 4px 12px;
             border-radius: 40px;
-            width: fit-content;
+            letter-spacing: 0.3px;
+            display: inline-block;
         }
 
         .course-title {
@@ -279,6 +279,26 @@
             flex-grow: 1;
         }
 
+        .certificate-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(52, 199, 89, 0.12);
+            border: 1px solid var(--success);
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--success);
+            margin-top: 15px;
+            width: fit-content;
+            align-self: center;
+        }
+        .certificate-badge i {
+            font-size: 1rem;
+        }
+
         .course-btn {
             display: inline-flex;
             align-items: center;
@@ -287,30 +307,24 @@
             background: rgba(0, 122, 255, 0.1);
             border: 1px solid rgba(0, 122, 255, 0.5);
             color: var(--primary);
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 60px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
-            width: fit-content;
             font-size: 0.9rem;
             backdrop-filter: blur(4px);
+            margin-top: 20px;
+            width: 100%;
         }
-
-        .course-btn i {
-            transition: transform 0.3s;
-        }
-
+        .course-btn i { transition: transform 0.3s; }
         .course-btn:hover {
             background: var(--primary);
             color: white;
             gap: 16px;
             border-color: transparent;
         }
-
-        .course-btn:hover i {
-            transform: translateX(-4px);
-        }
+        .course-btn:hover i { transform: translateX(-4px); }
 
         /* ========== FOOTER ========== */
         .academy-footer {
@@ -321,21 +335,9 @@
             margin-top: 40px;
             text-align: center;
         }
-
-        .footer-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        .footer-content p {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-        }
-
-        .footer-links {
-            margin-top: 25px;
-        }
-
+        .footer-content h3 { font-size: 1.8rem; margin-bottom: 15px; }
+        .footer-content p { color: var(--text-dim); font-size: 0.9rem; }
+        .footer-links { margin-top: 25px; }
         .footer-links a {
             color: var(--text-main);
             font-size: 1.5rem;
@@ -343,233 +345,214 @@
             transition: 0.3s;
             display: inline-block;
         }
+        .footer-links a:hover { color: var(--primary); transform: translateY(-3px); }
 
-        .footer-links a:hover {
-            color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
-            }
-            .academy-hero {
-                padding: 60px 0 40px;
-            }
-            .courses-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            .course-card {
-                padding: 25px 20px;
-            }
-            .course-title {
-                font-size: 1.4rem;
-            }
+            .container { padding: 0 20px; }
+            .academy-hero { padding: 60px 0 40px; }
+            .courses-grid { grid-template-columns: 1fr; gap: 25px; }
+            .course-card { padding: 25px 20px; }
+            .course-title { font-size: 1.4rem; }
+            .tags-container { gap: 8px; }
+            .course-tag { font-size: 0.7rem; }
+            .nav-buttons { gap: 8px; }
+            .nav-btn { padding: 4px 10px; font-size: 0.8rem; }
         }
-
-        /* scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--dark-alt);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark-alt); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
 
-    <!-- Navigation Bar -->
-    <nav class="main-nav">
-        <div class="container nav-container">
-            <div class="logo"><span>Cyber</span> Khalil</div>
-            <button id="lang-toggle" class="lang-switch">English</button>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="academy-hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge" data-key="hero_badge">
-                    <i class="fas fa-graduation-cap"></i> منصة تعليمية متكاملة
-                </div>
-                <h1 data-key="hero_title">أكاديمية سايبر خليل</h1>
-                <p data-key="hero_desc">مركز المحاضرات والمواد العلمية لطلاب أمن المعلومات والبرمجة. دورات احترافية في الأمن السيبراني، الشبكات، البرمجة، وأساسيات الحوسبة.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Courses Grid -->
-    <div class="container courses-section">
-        <div class="section-header">
-            <h2 data-key="section_title">البرامج التعليمية</h2>
-            <div class="underline"></div>
-            <p data-key="section_sub" style="color: var(--text-dim); margin-top: 15px;">اختر مسارك وابدأ رحلة التعلم</p>
-        </div>
-
-        <div class="courses-grid">
-            
-            <!-- Course 1: أخلاقيات عصر المعلومات -->
-            <div class="course-card">
-                <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
-                <div class="course-code">DINF-1101</div>
-                <div class="course-title" data-key="course1_title">أخلاقيات عصر المعلومات</div>
-                <div class="course-description" data-key="course1_desc">
-                    دراسة القضايا الأخلاقية في عصر المعلومات: الخصوصية، الملكية الفكرية، أخلاقيات المهنة، والقوانين الرقمية. مناسب لطلاب الدبلوم والبكالوريوس.
-                </div>
-                <a href="https://cyberkhalil.github.io/DINF-1101/" target="_blank" class="course-btn" data-key="btn_text">
-                    دخول الأكاديمية <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
-
-            <!-- Course 2: أمن الشبكات -->
-            <div class="course-card">
-                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="course-code">SYBS-2304</div>
-                <div class="course-title" data-key="course2_title">أمن الشبكات</div>
-                <div class="course-description" data-key="course2_desc">
-                    مفاهيم متقدمة في أمن الشبكات: جدران الحماية، IDS/IPS، VPN، أمن الاتصالات، وتحليل الهجمات. مع تطبيقات عملية باستخدام أدوات حقيقية.
-                </div>
-                <a href="https://cyberkhalil.github.io/SYBS-2304/" target="_blank" class="course-btn" data-key="btn_text">
-                    دخول الأكاديمية <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
-
-            <!-- Course 3: لغة برمجة جافا 1 -->
-            <div class="course-card">
-                <div class="card-icon"><i class="fab fa-java"></i></div>
-                <div class="course-code">DINF-1303</div>
-                <div class="course-title" data-key="course3_title">لغة برمجة جافا 1</div>
-                <div class="course-description" data-key="course3_desc">
-                    أساسيات البرمجة باستخدام Java: المتغيرات، الجمل الشرطية، الحلقات، المصفوفات، والدوال. تم تصميم المساق خصيصاً لمستوى الدبلوم.
-                </div>
-                <a href="https://cyberkhalil.github.io/DINF-1303/" target="_blank" class="course-btn" data-key="btn_text">
-                    دخول الأكاديمية <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
-
-            <!-- Course 4: مقدمة في الحوسبة -->
-            <div class="course-card">
-                <div class="card-icon"><i class="fas fa-microchip"></i></div>
-                <div class="course-code">ISSE-1201</div>
-                <div class="course-title" data-key="course4_title">مقدمة في الحوسبة</div>
-                <div class="course-description" data-key="course4_desc">
-                    مدخل إلى علوم الحاسوب: تمثيل البيانات، معمارية الحاسوب، الشبكات، نظم التشغيل، وأساسيات الأمن السيبراني. مساق تأسيسي لهندسة الأمن السيبراني.
-                </div>
-                <a href="https://cyberkhalil.github.io/ISSE-1201/" target="_blank" class="course-btn" data-key="btn_text">
-                    دخول الأكاديمية <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
+<nav class="main-nav">
+    <div class="container nav-container">
+        <div class="logo"><span>Cyber</span> Khalil</div>
+        <div class="nav-buttons">
+            <a href="https://cyberkhalil.github.io/" class="nav-btn" id="profileBtn">
+                <i class="fas fa-user"></i> <span data-key="profile_btn">الملف الشخصي</span>
+            </a>
+            <button id="lang-toggle" class="nav-btn lang-switch">English</button>
         </div>
     </div>
+</nav>
 
-    <!-- Footer -->
-    <footer class="academy-footer">
-        <div class="container">
-            <div class="footer-content">
-                <h3><span style="color: var(--primary);">Cyber</span> Khalil</h3>
-                <p data-key="footer_desc">نحو فضاء سيبراني تعليمي متميز.</p>
-                <div class="footer-links">
-                    <a href="mailto:khalil2535@proton.me" target="_blank"><i class="fas fa-envelope"></i></a>
-                    <a href="https://youtube.com/@cyber.khalil" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://linkedin.com/in/cyberkhalil" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/cyberkhalil" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://t.me/cyber_khalil" target="_blank"><i class="fab fa-telegram"></i></a>
-                    <a href="https://facebook.com/cyberkhalil" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://instagram.com/cyber.khalil" target="_blank"><i class="fab fa-instagram"></i></a>
-                </div>
-                <p style="margin-top: 30px; font-size: 0.85rem;" data-key="copyright">© 2026 جميع الحقوق محفوظة – محمود الشيخ خليل (سايبر خليل)</p>
-            </div>
+<section class="academy-hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge" data-key="hero_badge"><i class="fas fa-graduation-cap"></i> منصة تعليمية متكاملة</div>
+            <h1 data-key="hero_title">أكاديمية سايبر خليل</h1>
+            <p data-key="hero_desc">مركز المحاضرات والمواد العلمية لطلاب أمن المعلومات والبرمجة. دورات احترافية في الأمن السيبراني، الشبكات، البرمجة، وأساسيات الحوسبة.</p>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <script>
-        // Translation dictionary
-        const translations = {
-            ar: {
-                hero_badge: "منصة تعليمية متكاملة",
-                hero_title: "أكاديمية سايبر خليل",
-                hero_desc: "مركز المحاضرات والمواد العلمية لطلاب أمن المعلومات والبرمجة. دورات احترافية في الأمن السيبراني، الشبكات، البرمجة، وأساسيات الحوسبة.",
-                section_title: "البرامج التعليمية",
-                section_sub: "اختر مسارك وابدأ رحلة التعلم",
-                course1_title: "أخلاقيات عصر المعلومات",
-                course1_desc: "دراسة القضايا الأخلاقية في عصر المعلومات: الخصوصية، الملكية الفكرية، أخلاقيات المهنة، والقوانين الرقمية. مناسب لطلاب الدبلوم والبكالوريوس.",
-                course2_title: "أمن الشبكات",
-                course2_desc: "مفاهيم متقدمة في أمن الشبكات: جدران الحماية، IDS/IPS، VPN، أمن الاتصالات، وتحليل الهجمات. مع تطبيقات عملية باستخدام أدوات حقيقية.",
-                course3_title: "لغة برمجة جافا 1",
-                course3_desc: "أساسيات البرمجة باستخدام Java: المتغيرات، الجمل الشرطية، الحلقات، المصفوفات، والدوال. تم تصميم المساق خصيصاً لمستوى الدبلوم.",
-                course4_title: "مقدمة في الحوسبة",
-                course4_desc: "مدخل إلى علوم الحاسوب: تمثيل البيانات، معمارية الحاسوب، الشبكات، نظم التشغيل، وأساسيات الأمن السيبراني. مساق تأسيسي لهندسة الأمن السيبراني.",
-                btn_text: "دخول الأكاديمية <i class='fas fa-arrow-left'></i>",
-                footer_desc: "نحو فضاء سيبراني تعليمي متميز.",
-                copyright: "© 2026 جميع الحقوق محفوظة – محمود الشيخ خليل (سايبر خليل)"
-            },
-            en: {
-                hero_badge: "Integrated Educational Platform",
-                hero_title: "Cyber Khalil Academy",
-                hero_desc: "A hub for lectures and educational materials for Information Security and Programming students. Professional courses in cybersecurity, networks, programming, and computing fundamentals.",
-                section_title: "Educational Programs",
-                section_sub: "Choose your path and start learning",
-                course1_title: "Information Age Ethics",
-                course1_desc: "Study of ethical issues in the information age: privacy, intellectual property, professional ethics, and digital laws. Suitable for diploma and bachelor students.",
-                course2_title: "Network Security",
-                course2_desc: "Advanced concepts in network security: Firewalls, IDS/IPS, VPN, communication security, and attack analysis. With practical applications using real tools.",
-                course3_title: "Java Programming 1",
-                course3_desc: "Fundamentals of programming using Java: variables, conditionals, loops, arrays, and functions. Designed specifically for diploma level.",
-                course4_title: "Introduction to Computing",
-                course4_desc: "Introduction to computer science: data representation, computer architecture, networks, operating systems, and cybersecurity basics. A foundational course for cybersecurity engineering.",
-                btn_text: "Enter Academy <i class='fas fa-arrow-right'></i>",
-                footer_desc: "Towards a distinguished educational cyberspace.",
-                copyright: "© 2026 All Rights Reserved - Mahmoud Khalil (Cyber Khalil)"
-            }
-        };
+<div class="container courses-section">
+    <div class="section-header">
+        <h2 data-key="section_title">البرامج التعليمية</h2>
+        <div class="underline"></div>
+        <p data-key="section_sub" style="color: var(--text-dim); margin-top: 15px;">اختر مسارك وابدأ رحلة التعلم</p>
+    </div>
+    <div class="courses-grid" id="coursesGrid"></div>
+</div>
 
-        let currentLang = 'ar';
-        const htmlTag = document.getElementById('html-tag');
-        const toggleBtn = document.getElementById('lang-toggle');
+<footer class="academy-footer">
+    <div class="container">
+        <div class="footer-content">
+            <h3><span style="color: var(--primary);">Cyber</span> Khalil</h3>
+            <p data-key="footer_desc">نحو فضاء سيبراني تعليمي متميز.</p>
+            <div class="footer-links">
+                <a href="mailto:khalil2535@proton.me"><i class="fas fa-envelope"></i></a>
+                <a href="https://youtube.com/@cyber.khalil"><i class="fab fa-youtube"></i></a>
+                <a href="https://linkedin.com/in/cyberkhalil"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/cyberkhalil"><i class="fab fa-github"></i></a>
+                <a href="https://t.me/cyber_khalil"><i class="fab fa-telegram"></i></a>
+                <a href="https://facebook.com/cyberkhalil"><i class="fab fa-facebook"></i></a>
+                <a href="https://instagram.com/cyber.khalil"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p style="margin-top: 30px; font-size: 0.85rem;" data-key="copyright">© 2026 جميع الحقوق محفوظة – محمود الشيخ خليل (سايبر خليل)</p>
+        </div>
+    </div>
+</footer>
 
-        function updateLanguage() {
-            // Update all elements with data-key
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (translations[currentLang][key]) {
-                    if (key === 'btn_text') {
-                        // For buttons, we need to set innerHTML because of icon
-                        el.innerHTML = translations[currentLang][key];
-                    } else {
-                        el.innerText = translations[currentLang][key];
-                    }
-                }
-            });
-            // Update direction and lang attribute
-            if (currentLang === 'ar') {
-                htmlTag.setAttribute('dir', 'rtl');
-                htmlTag.setAttribute('lang', 'ar');
-                toggleBtn.innerText = 'English';
-            } else {
-                htmlTag.setAttribute('dir', 'ltr');
-                htmlTag.setAttribute('lang', 'en');
-                toggleBtn.innerText = 'العربية';
-            }
+<script>
+    const coursesData = [
+        {
+            code: "DINF-1101",
+            title_ar: "أخلاقيات عصر المعلومات",
+            title_en: "Information Age Ethics",
+            desc_ar: "دراسة القضايا الأخلاقية في عصر المعلومات: الخصوصية، الملكية الفكرية، أخلاقيات المهنة، والقوانين الرقمية. مناسب لطلاب الدبلوم والبكالوريوس.",
+            desc_en: "Study of ethical issues in the information age: privacy, intellectual property, professional ethics, and digital laws. Suitable for diploma and bachelor students.",
+            icon: "fas fa-balance-scale",
+            link: "https://cyberkhalil.github.io/DINF-1101/",
+            tags_ar: ["دبلوم", "أخلاقيات", "قوانين رقمية"],
+            tags_en: ["Diploma", "Ethics", "Digital Laws"]
+        },
+        {
+            code: "SYBS-2304",
+            title_ar: "أمن الشبكات",
+            title_en: "Network Security",
+            desc_ar: "مفاهيم متقدمة في أمن الشبكات: جدران الحماية، IDS/IPS، VPN، أمن الاتصالات، وتحليل الهجمات. مع تطبيقات عملية باستخدام أدوات حقيقية.",
+            desc_en: "Advanced concepts in network security: Firewalls, IDS/IPS, VPN, communication security, and attack analysis. With practical applications using real tools.",
+            icon: "fas fa-shield-alt",
+            link: "https://cyberkhalil.github.io/SYBS-2304/",
+            tags_ar: ["دبلوم", "أمن سيبراني", "شبكات"],
+            tags_en: ["Diploma", "Cybersecurity", "Networks"]
+        },
+        {
+            code: "DINF-1303",
+            title_ar: "لغة برمجة جافا 1",
+            title_en: "Java Programming 1",
+            desc_ar: "أساسيات البرمجة باستخدام Java: المتغيرات، الجمل الشرطية، الحلقات، المصفوفات، والدوال. تم تصميم المساق خصيصاً لمستوى الدبلوم.",
+            desc_en: "Fundamentals of programming using Java: variables, conditionals, loops, arrays, and functions. Designed specifically for diploma level.",
+            icon: "fab fa-java",
+            link: "https://cyberkhalil.github.io/DINF-1303/",
+            tags_ar: ["دبلوم", "برمجة", "جافا"],
+            tags_en: ["Diploma", "Programming", "Java"]
+        },
+        {
+            code: "ISSE-1201",
+            title_ar: "مقدمة في الحوسبة",
+            title_en: "Introduction to Computing",
+            desc_ar: "مدخل إلى علوم الحاسوب: تمثيل البيانات، معمارية الحاسوب، الشبكات، نظم التشغيل، وأساسيات الأمن السيبراني. مساق تأسيسي لهندسة الأمن السيبراني.",
+            desc_en: "Introduction to computer science: data representation, computer architecture, networks, operating systems, and cybersecurity basics. A foundational course for cybersecurity engineering.",
+            icon: "fas fa-microchip",
+            link: "https://cyberkhalil.github.io/ISSE-1201/",
+            tags_ar: ["بكالوريوس", "أساسيات", "حوسبة"],
+            tags_en: ["Bachelor", "Fundamentals", "Computing"]
         }
+    ];
 
-        toggleBtn.addEventListener('click', () => {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            updateLanguage();
+    let currentLang = 'ar';
+
+    function renderCourses() {
+        const grid = document.getElementById('coursesGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        coursesData.forEach(course => {
+            const title = currentLang === 'ar' ? course.title_ar : course.title_en;
+            const desc = currentLang === 'ar' ? course.desc_ar : course.desc_en;
+            const btnText = currentLang === 'ar' ? 'دخول الأكاديمية <i class="fas fa-arrow-left"></i>' : 'Enter Academy <i class="fas fa-arrow-right"></i>';
+            const tags = currentLang === 'ar' ? course.tags_ar : course.tags_en;
+            const certificateText = currentLang === 'ar' ? 'شهادة إنجاز' : 'Certificate of Completion';
+
+            const card = document.createElement('div');
+            card.className = 'course-card';
+            card.innerHTML = `
+                <div class="card-icon"><i class="${course.icon}"></i></div>
+                <div class="tags-container">
+                    ${tags.map(tag => `<span class="course-tag">${tag}</span>`).join('')}
+                </div>
+                <div class="course-title">${title}</div>
+                <div class="course-description">${desc}</div>
+                <div class="certificate-badge">
+                    <i class="fas fa-certificate"></i> ${certificateText}
+                </div>
+                <a href="${course.link}" target="_blank" class="course-btn">${btnText}</a>
+            `;
+            grid.appendChild(card);
         });
+    }
 
-        // Initialize
-        updateLanguage();
-    </script>
+    const translations = {
+        ar: {
+            hero_badge: "منصة تعليمية متكاملة",
+            hero_title: "أكاديمية سايبر خليل",
+            hero_desc: "مركز المحاضرات والمواد العلمية لطلاب أمن المعلومات والبرمجة. دورات احترافية في الأمن السيبراني، الشبكات، البرمجة، وأساسيات الحوسبة.",
+            section_title: "البرامج التعليمية",
+            section_sub: "اختر مسارك وابدأ رحلة التعلم",
+            footer_desc: "نحو فضاء سيبراني تعليمي متميز.",
+            copyright: "© 2026 جميع الحقوق محفوظة – محمود الشيخ خليل (سايبر خليل)",
+            profile_btn: "الملف الشخصي"
+        },
+        en: {
+            hero_badge: "Integrated Educational Platform",
+            hero_title: "Cyber Khalil Academy",
+            hero_desc: "A hub for lectures and educational materials for Information Security and Programming students. Professional courses in cybersecurity, networks, programming, and computing fundamentals.",
+            section_title: "Educational Programs",
+            section_sub: "Choose your path and start learning",
+            footer_desc: "Towards a distinguished educational cyberspace.",
+            copyright: "© 2026 All Rights Reserved - Mahmoud Khalil (Cyber Khalil)",
+            profile_btn: "Profile"
+        }
+    };
+
+    function updateStaticTexts() {
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[currentLang][key]) {
+                if (el.tagName === 'SPAN') {
+                    el.innerText = translations[currentLang][key];
+                } else {
+                    el.innerText = translations[currentLang][key];
+                }
+            }
+        });
+        const htmlTag = document.getElementById('html-tag');
+        if (currentLang === 'ar') {
+            htmlTag.setAttribute('dir', 'rtl');
+            htmlTag.setAttribute('lang', 'ar');
+            document.getElementById('lang-toggle').innerText = 'English';
+        } else {
+            htmlTag.setAttribute('dir', 'ltr');
+            htmlTag.setAttribute('lang', 'en');
+            document.getElementById('lang-toggle').innerText = 'العربية';
+        }
+        renderCourses();
+    }
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        updateStaticTexts();
+    }
+
+    renderCourses();
+    updateStaticTexts();
+    document.getElementById('lang-toggle').addEventListener('click', toggleLanguage);
+</script>
 </body>
 </html>
